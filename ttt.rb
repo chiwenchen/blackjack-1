@@ -1,9 +1,5 @@
 require 'pry'
 
-# def valid_int?(num)
-#   !/^\d+$/.match(num).nil?
-# end
-
 $board = {1 => " ", 2 => " ", 3 => " ", 4 => " ",5 => " ", 6 => " ",7 => " ", 8 => " ", 9 => " "}
 empty_boxes = [1, 2, 3, 4, 5, 6, 7, 8 ,9]
 
@@ -123,8 +119,6 @@ loop do
     puts "Yeah. You LOSE!!!"
     break 
   end
-
-  break if person_turn == 'q'
 
 end
 puts "================== o0o ==================" 
