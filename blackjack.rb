@@ -23,45 +23,59 @@ def card_deck
               "clubs_Ace" => 11}
 end
 
-def used_card
-  used_card = {"spades_2" => ' ', "spades_3" => ' ', "spades_4" => ' ', "spades_5" => ' ',
-              "spades_6" => ' ', "spades_7" => ' ', "spades_8" => ' ', "spades_9" => ' ',
-              "spades_10" => ' ', "spades_jack" => ' ', "spades_king" => ' ', "spades_queen" => ' ',
-              "spades_Ace" => ' ', "hearts_2" => ' ', "hearts_3" => ' ', "hearts_4" => ' ', "hearts_5" => ' ',
-              "hearts_6" => ' ', "hearts_7" => ' ', "hearts_8" => ' ', "hearts_9" => ' ',
-              "hearts_10" => ' ', "hearts_jack" => ' ', "hearts_king" => ' ', "hearts_queen" => ' ',
-              "hearts_Ace" => ' ', "diamonds_2" => ' ', "diamonds_3" => ' ', "diamonds_4" => ' ', "diamonds_5" => ' ',
-              "diamonds_6" => ' ', "diamonds_7" => ' ', "diamonds_8" => ' ', "diamonds_9" => ' ',
-              "diamonds_10" => ' ', "diamonds_jack" => ' ', "diamonds_king" => ' ', "diamonds_queen" => ' ',
-              "diamonds_Ace" => ' ', "clubs_2" => ' ', "clubs_3" => ' ', "clubs_4" => ' ', "clubs_5" => ' ',
-              "clubs_6" => ' ', "clubs_7" => ' ', "clubs_8" => ' ', "clubs_9" => ' ',
-              "clubs_10" => ' ', "clubs_jack" => ' ', "clubs_king" => ' ', "clubs_queen" => ' ',
-              "clubs_Ace" => ' '}
-end
-
 def store_name(name)
   puts "What is your name?"
   name = gets.chomp
-end
-
-cards = used_card.keys
-
-
-def player_cards(cards)
-  if used_card.has_value?('X') == false
-    first_cards = cards.sample(2)
-    first_cards.each{|x| used_card[x] = 'X'}
-  else
-    puts "OK"
-  end
 end
 
 def winning_condition  
   true
 end
 
+name = store_name(name)
+cards = card_deck.keys
+player_cards = []
+dealer_cards = []
+
 begin
-  puts player_cards(cards)
+  if player_cards.empty? == true
+    player_cards = cards.sample(2)
+  else
+    player_cards << cards.sample
+  end
+  player_total = 0
+  card_deck.each{|key, value| player_total += value if player_cards.include?(key) == true}
+  puts "\e[H\e[2J" 
+  puts "#{name}'s cards: (total: #{player_total})"
+  puts player_cards
+  puts "+++++++++"
+
+  if dealer_cards.empty? == true
+    dealer_cards << cards.sample
+    dealer_total = 0
+    card_deck.each{|key, value| dealer_total += value if dealer_cards.include?(key) == true}
+    puts "Dealer's card: (total: #{dealer_total}}"
+    puts dealer_cards
+    puts "*Undisclosed card*"
+  else
+    dealer_cards << cards.sample
+    dealer_total = 0
+    card_deck.each{|key, value| dealer_total += value if dealer_cards.include?(key) == true}
+    puts "Dealer's card: (total: #{dealer_total}}"
+    puts dealer_cards
+  end
+
+  # if dealer_total <= 21 && player_total <= 21
+  #   puts "Do you want to (H)it or (S)tay?"
+  #   player_choice = gets.chomp.downcase
+  #   if player_choice == 'h'
+  #     next
+  #   elsif player_choice == 's'
+
+  #   else
+  #   end
+  # end
+
   hit = gets.chomp.downcase
   if hit == 'h'
     break
